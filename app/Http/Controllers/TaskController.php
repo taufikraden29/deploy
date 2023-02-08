@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,10 +22,15 @@ class TaskController extends Controller
     }
     public function store(Request $request)
     {
-        Task::insert([
-            'list' => $request->list,
-            'mark' => false
-        ]);
+        if ($request->list == null) {
+            Alert::toast('Masukan Task Kamu', 'Toast Type');
+        } else {
+            Task::insert([
+                'list' => $request->list,
+                'mark' => false
+            ]);
+            Alert::toast("'{$request->list}' Berhasil Ditambahkan", 'Toast Type');
+        }
 
         return back();
     }
@@ -36,13 +42,15 @@ class TaskController extends Controller
     }
     public function update(Request $request, $id)
     {
-        $task =  Task::where('id', $id)->update(['list' => $request->list]);
+        Task::where('id', $id)->update(['list' => $request->list]);
+
+        Alert::toast("Berhasil Ter-update", 'Toast Type');
         return redirect('tasks');
     }
     public function destroy(Request $request, $id)
     {
         Task::where('id', $id)->delete();
-
+        Alert::toast("Berhasil Dihapus", 'Toast Type');
         return back();
     }
 }

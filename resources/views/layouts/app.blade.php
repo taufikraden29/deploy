@@ -11,6 +11,7 @@
 
 <body>
     <x-navbar></x-navbar>
+    @include('sweetalert::alert')
     <div class="pt-4">
         {{ $slot }}
     </div>

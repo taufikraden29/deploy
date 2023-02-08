@@ -4,7 +4,9 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Create New Task
+                        <h3>
+                            Create New Task
+                        </h3>
                     </div>
                     <div class="card-body">
                         <form action="/tasks" method="post" class="d-flex">
